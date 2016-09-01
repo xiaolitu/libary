@@ -26,33 +26,58 @@ public class UserServlet extends HttpServlet{
 		try {
 			req.setCharacterEncoding("utf-8");
 			resp.setCharacterEncoding("utf-8");
-			String user_name = req.getParameter("user_name");
-			String password = req.getParameter("password");
-			String password_again = req.getParameter("password_again");
-			if (StringUtil.isEmpty(user_name) || StringUtil.isEmpty(password)) {
-				req.setAttribute("msg", "用户名或密码不能为空");
-				req.getRequestDispatcher("view/error.jsp").forward(req, resp);
-				return;
-			}
-			if (!password.equals(password_again)) {
-				req.setAttribute("msg", "密码不一致");
-				req.getRequestDispatcher("view/error.jsp").forward(req, resp);
-				return;
-			}
-			User user = new User();
-			user.setUserName(user_name);
-			user.setPassword(password);
-			user.setType("0");
-			boolean b = userService.register(user);
-			if (b) {
-				req.setAttribute("userName", user.getUserName());
-				req.getRequestDispatcher("index.jsp").forward(req, resp);
-			}else{
-				req.setAttribute("msg", "用户名已存在");
-				req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+			String mothed = req.getParameter("mothed");
+			if ("register".equals(mothed)) {
+				register(req, resp);
+			}else if("login".equals(mothed)){
+				login(req, resp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 登录
+	 * @param req
+	 * @param resp
+	 */
+	private void login(HttpServletRequest req, HttpServletResponse resp){
+		
+	}
+	
+	/**
+	 * 注册
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		String user_name = req.getParameter("user_name");
+		String password = req.getParameter("password");
+		String password_again = req.getParameter("password_again");
+		if (StringUtil.isEmpty(user_name) || StringUtil.isEmpty(password)) {
+			req.setAttribute("msg", "用户名或密码不能为空");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+			return;
+		}
+		if (!password.equals(password_again)) {
+			req.setAttribute("msg", "密码不一致");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+			return;
+		}
+		User user = new User();
+		user.setUserName(user_name);
+		user.setPassword(password);
+		user.setType("0");
+		boolean b = userService.register(user);
+		if (b) {
+			req.setAttribute("userName", user.getUserName());
+			req.getRequestDispatcher("index.jsp").forward(req, resp);
+		}else{
+			req.setAttribute("msg", "用户名已存在");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
 		}
 	}
 	
