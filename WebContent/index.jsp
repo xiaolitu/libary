@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%
+    
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,9 +16,9 @@
 <%
 	String userName = (String)request.getAttribute("userName");
 	if(userName == null){%>
-		<div align="right" style="margin-right: 50px"><a href="view/login.jsp">登录</a>  <a href="view/register.jsp">免费注册</a></div>
+		<div align="right" style="margin-right: 50px"><a href="view/login.jsp">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="view/user/register.jsp">免费注册</a></div>
 	<%}else{%>
-		<div align="right" style="margin-right: 50px"><label><%=userName %></label><a href="#">退出</a></div>
+		<div align="right" style="margin-right: 50px"><label><%=userName %></label>&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.jsp	">退出</a></div>
 	<%}
 %>
 

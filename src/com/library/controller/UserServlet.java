@@ -1,6 +1,7 @@
 package com.library.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,9 +42,28 @@ public class UserServlet extends HttpServlet{
 	 * 登录
 	 * @param req
 	 * @param resp
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * @throws ServletException 
 	 */
-	private void login(HttpServletRequest req, HttpServletResponse resp){
-		
+	private void login(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException{
+		String user_name = req.getParameter("user_name");
+		String password = req.getParameter("password");
+		User user = new User();
+		user.setUserName(user_name);
+		user.setPassword(password);
+		user = userService.login(user);
+		if(user != null){
+			req.setAttribute("userName", user.getUserName());
+			if ("1".equals(user.getType())) {
+				req.getRequestDispatcher("view/manager/manager.jsp").forward(req, resp);
+			}else{
+				req.getRequestDispatcher("index.jsp").forward(req, resp);
+			}
+		}else{
+			req.setAttribute("msg", "用户名或密码错误");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+		};
 	}
 	
 	/**
@@ -52,8 +72,9 @@ public class UserServlet extends HttpServlet{
 	 * @param resp
 	 * @throws ServletException
 	 * @throws IOException
+	 * @throws SQLException 
 	 */
-	private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+	private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException{
 		String user_name = req.getParameter("user_name");
 		String password = req.getParameter("password");
 		String password_again = req.getParameter("password_again");

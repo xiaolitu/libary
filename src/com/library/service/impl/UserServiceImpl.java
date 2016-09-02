@@ -31,4 +31,19 @@ public class UserServiceImpl implements UserServiceI{
 		}
 	}
 
+	@Override
+	public User login(User user) throws SQLException {
+		List<Map<String, Object>> result = dao.query("select * from t_user where user_name=? and password=?", user.getUserName(), user.getPassword());
+		if (result.size() > 0) {
+			User tempUser = new User();
+			tempUser.setId(Integer.parseInt(String.valueOf(result.get(0).get("id"))));
+			tempUser.setUserName(String.valueOf(result.get(0).get("user_name")));
+			tempUser.setPassword(String.valueOf(result.get(0).get("password")));
+			tempUser.setType(String.valueOf(result.get(0).get("type")));
+			tempUser.setCreateTime(String.valueOf(result.get(0).get("create_time")));
+			return tempUser;
+		}
+		return null;
+	}
+
 }
