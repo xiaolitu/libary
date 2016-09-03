@@ -25,7 +25,7 @@ body {
 	<br>
 	<br>
 	<center>
-		<form action="userServlet?mothed=register" method="post">
+		<form action="userServlet?mothed=addManager" method="post">
 			<table width="300" height="200" border="0" cellspacing="0"
 				cellpadding="0"
 				style="border: 1px solid #ccc; background-color: #a6a3ff">

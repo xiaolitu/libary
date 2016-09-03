@@ -2,6 +2,8 @@ package com.library.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +23,11 @@ import com.library.util.StringUtil;
 public class UserServlet extends HttpServlet{
 
 	private UserServiceI userService = new UserServiceImpl();
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
+	}
+	
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,9 +39,59 @@ public class UserServlet extends HttpServlet{
 				register(req, resp);
 			}else if("login".equals(mothed)){
 				login(req, resp);
+			}else if("addManager".equals(mothed)){
+				addManager(req, resp);
+			}else if("managerList".equals(mothed)){
+				managerList(req, resp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	/**
+	 * 管理员列表
+	 * @param req
+	 * @param resp
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	private void managerList(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException{
+		int page = Integer.valueOf(req.getParameter("page"));
+		int rows = Integer.valueOf(req.getParameter("rows"));
+		if (page < 1) {
+			page = 1;
+		}
+		if (rows < 1) {
+			rows = 3;
+		}
+		Map<String, Object> map = userService.managerList(page, rows);
+		map.put("page", page);
+		req.setAttribute("map", map);
+		req.getRequestDispatcher("view/manager/managerList.jsp").forward(req, resp);
+	}
+	
+	/**
+	 * 添加管理员
+	 * @param req
+	 * @param resp
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	private void addManager(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException{
+		String user_name = req.getParameter("user_name");
+		String password = req.getParameter("password");
+		User user = new User();
+		user.setUserName(user_name);
+		user.setPassword(password);
+		user.setType("1");
+		if (userService.addManager(user)) {
+			req.setAttribute("msg", "操作成功");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+		}else{
+			req.setAttribute("msg", "添加失败");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
 		}
 	}
 	

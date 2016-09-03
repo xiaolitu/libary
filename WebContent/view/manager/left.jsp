@@ -52,7 +52,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="text-align: center;">
 <div id="userHead" name="head">用户管理</div>
 <div id="user" style="display: none">
-<a href="#" target="right">添加用户</a><br>
 <a href="#">查询用户</a>
 </div>
 <div id="productHead" name="head">库存管理</div>
@@ -63,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="managerHead" name="head">管理员管理</div>
 <div id="manager" style="display: none">
 <a href="view/manager/add.jsp" target="right">添加管理员</a><br>
-<a href="#">查询管理员</a>
+<a href="userServlet?mothed=managerList&page=1&rows=3" target="right">查询管理员</a>
 </div>
 </body>
 </html>
