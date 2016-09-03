@@ -56,8 +56,10 @@ td {
 		<a href="userServlet?mothed=managerList&page=<%=i %>&rows=3"><%=i %></a>
 		<%}
 			}else if(pages - pageTemp < 3){
-				%>
+				if(pages-3 > 1){%>
 					<a href="userServlet?mothed=managerList&page=<%=pages-3 %>&rows=3"><%=pages-3 %></a>
+				<%}
+				%>
 					<a href="userServlet?mothed=managerList&page=<%=pages-2 %>&rows=3"><%=pages-2 %></a>
 					<a href="userServlet?mothed=managerList&page=<%=pages-1 %>&rows=3"><%=pages-1 %></a>
 					
