@@ -55,15 +55,11 @@ td {
 				for(int i = 2; i < pages && i <= 4; i++){%>
 		<a href="userServlet?mothed=managerList&page=<%=i %>&rows=3"><%=i %></a>
 		<%}
-			}else if(pages - pageTemp <= 3){
+			}else if(pages - pageTemp < 3){
 				%>
-					<a href="userServlet?mothed=managerList&page=<%=pageTemp-1 %>&rows=3"><%=pageTemp-1 %></a>
-					<a href="userServlet?mothed=managerList&page=<%=pageTemp %>&rows=3"><%=pageTemp %></a>
-					<%
-						if(pageTemp < pages){%>
-							<a href="userServlet?mothed=managerList&page=<%=pageTemp+1 %>&rows=3"><%=pageTemp+1 %></a>
-						<%}
-					%>
+					<a href="userServlet?mothed=managerList&page=<%=pages-3 %>&rows=3"><%=pages-3 %></a>
+					<a href="userServlet?mothed=managerList&page=<%=pages-2 %>&rows=3"><%=pages-2 %></a>
+					<a href="userServlet?mothed=managerList&page=<%=pages-1 %>&rows=3"><%=pages-1 %></a>
 					
 					<%
 			}else{
