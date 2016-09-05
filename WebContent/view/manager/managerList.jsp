@@ -39,7 +39,7 @@ td {
 				<td><%=users.get(i).getId() %></td>
 				<td><%=users.get(i).getUserName() %></td>
 				<td><%=users.get(i).getCreateTime() %></td>
-				<td><a href="#">删除</a>&nbsp;<a href="#">修改</a></td>
+				<td><a href="userServlet?mothed=delManager&id=<%=users.get(i).getId() %>">删除</a>&nbsp;<a href="view/manager/updateManager.jsp?id=<%=users.get(i).getId() %>&user_name=<%=users.get(i).getUserName() %>&password=<%=users.get(i).getPassword() %>">修改</a></td>
 			</tr>
 			<%}
 			%>
@@ -66,7 +66,6 @@ td {
 					<%
 			}else{
 		%>
-
 		<%
 			if(pageTemp - 1 > 2){%>
 		<a

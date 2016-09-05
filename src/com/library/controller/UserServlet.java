@@ -43,11 +43,49 @@ public class UserServlet extends HttpServlet{
 				addManager(req, resp);
 			}else if("managerList".equals(mothed)){
 				managerList(req, resp);
+			}else if("delManager".equals(mothed)){
+				delManager(req, resp);
+			}else if("updateManager".equals(mothed)){
+				updateManager(req, resp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void updateManager(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException{
+		String id = req.getParameter("id");
+		String user_name = req.getParameter("user_name");
+		String password = req.getParameter("password");
+		if (id == null) {
+			req.setAttribute("msg", "参数错误");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+		}
+		if (userService.updateManager(id, user_name, password)) {
+			Map<String, Object> map = userService.managerList(1, 3);
+			map.put("page", 1);
+			req.setAttribute("map", map);
+			req.getRequestDispatcher("view/manager/managerList.jsp").forward(req, resp);
+		}else{
+			req.setAttribute("msg", "操作失败,可能是已存此用户");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+		}
+		
+	}
+	
+	public void delManager(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException{
+		String id = req.getParameter("id");
+		if (userService.delManager(id)) {
+			Map<String, Object> map = userService.managerList(1, 3);
+			map.put("page", 1);
+			req.setAttribute("map", map);
+			req.getRequestDispatcher("view/manager/managerList.jsp").forward(req, resp);
+		}else{
+			req.setAttribute("msg", "操作失败");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+		}
+	}
+	
 	/**
 	 * 管理员列表
 	 * @param req

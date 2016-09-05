@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <div id="productHead" name="head">库存管理</div>
 <div id="product" style="display: none">
-<a href="#">添加库存</a><br>
+<a href="view/product/addProduct.jsp" target="right">添加库存</a><br>
 <a href="#">查询库存</a>
 </div>
 <div id="managerHead" name="head">管理员管理</div>

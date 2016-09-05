@@ -15,4 +15,8 @@ public interface UserServiceI {
 	public boolean addManager(User user) throws SQLException;
 
 	public Map<String, Object> managerList(int page, int rows) throws SQLException;
+
+	public boolean delManager(String id) throws SQLException;
+
+	public boolean updateManager(String id, String user_name, String password) throws SQLException;
 }

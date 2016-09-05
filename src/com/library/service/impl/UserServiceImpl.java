@@ -79,4 +79,23 @@ public class UserServiceImpl implements UserServiceI{
 		return map;
 	}
 
+	@Override
+	public boolean delManager(String id) throws SQLException {
+		
+		return dao.exec("delete from t_user where id = ?", id);
+		
+	}
+
+	@Override
+	public boolean updateManager(String id, String user_name, String password) throws SQLException {
+		List<Map<String, Object>> result = dao.query("select count(1)"
+				+ " as count from t_user where user_name=?", 
+				user_name);
+		if ("0".equals(String.valueOf(result.get(0).get("count")))) {
+			return dao.exec("update t_user set user_name=?, password=? where id=?", user_name, password, id);
+		}else{
+			return false;
+		}
+	}
+
 }
