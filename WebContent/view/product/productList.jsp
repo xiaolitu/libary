@@ -55,21 +55,21 @@ td {
 		</table>
 	</div>
 	<div style="text-align: center; margin-top: 30px">
-		<a href="userServlet?mothed=productList&page=1&rows=3">首页</a>
+		<a href="productServlet?mothed=productList&page=1&rows=3">首页</a>
 
 		<%
 			if(pageTemp <= 3){
 				
 				for(int i = 2; i < pages && i <= 4; i++){%>
-		<a href="userServlet?mothed=productList&page=<%=i %>&rows=3"><%=i %></a>
+		<a href="productServlet?mothed=productList&page=<%=i %>&rows=3"><%=i %></a>
 		<%}
 			}else if(pages - pageTemp < 3){
 				if(pages-3 > 1){%>
-					<a href="userServlet?mothed=productList&page=<%=pages-3 %>&rows=3"><%=pages-3 %></a>
+					<a href="productServlet?mothed=productList&page=<%=pages-3 %>&rows=3"><%=pages-3 %></a>
 				<%}
 				%>
-					<a href="userServlet?mothed=productList&page=<%=pages-2 %>&rows=3"><%=pages-2 %></a>
-					<a href="userServlet?mothed=productList&page=<%=pages-1 %>&rows=3"><%=pages-1 %></a>
+					<a href="productServlet?mothed=productList&page=<%=pages-2 %>&rows=3"><%=pages-2 %></a>
+					<a href="productServlet?mothed=productList&page=<%=pages-1 %>&rows=3"><%=pages-1 %></a>
 					
 					<%
 			}else{
@@ -77,18 +77,18 @@ td {
 		<%
 			if(pageTemp - 1 > 2){%>
 		<a
-			href="userServlet?mothed=productList&page=<%=pageTemp - 1 %>&rows=3"><%=pageTemp - 1 %></a>
+			href="productServlet?mothed=productList&page=<%=pageTemp - 1 %>&rows=3"><%=pageTemp - 1 %></a>
 		<%}
 		%>
-		<a href="userServlet?mothed=productList&page=<%=pageTemp %>&rows=3"><%=pageTemp %></a>
+		<a href="productServlet?mothed=productList&page=<%=pageTemp %>&rows=3"><%=pageTemp %></a>
 		<%
 			if(pageTemp + 1 < pages){%>
 		<a
-			href="userServlet?mothed=productList&page=<%=pageTemp + 1 %>&rows=3"><%=pageTemp + 1 %></a>
+			href="productServlet?mothed=productList&page=<%=pageTemp + 1 %>&rows=3"><%=pageTemp + 1 %></a>
 		<%}
 			}
 		%>
-		<a href="userServlet?mothed=productList&page=<%=pages %>&rows=3">尾页</a>
+		<a href="productServlet?mothed=productList&page=<%=pages %>&rows=3">尾页</a>
 	</div>
 </body>
 </html>
