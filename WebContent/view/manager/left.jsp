@@ -52,12 +52,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="text-align: center;">
 <div id="userHead" name="head">用户管理</div>
 <div id="user" style="display: none">
-<a href="#">查询用户</a>
+<a href="userServlet?mothed=userList&page=1&rows=3" target="right">查询用户</a>
 </div>
 <div id="productHead" name="head">库存管理</div>
 <div id="product" style="display: none">
 <a href="view/product/addProduct.jsp" target="right">添加库存</a><br>
-<a href="#">查询库存</a>
+<a href="productServlet?mothed=productList&page=1&rows=3" target="right">查询库存</a>
 </div>
 <div id="managerHead" name="head">管理员管理</div>
 <div id="manager" style="display: none">

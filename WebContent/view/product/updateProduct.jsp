@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="com.library.bean.*" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%  
 String path = request.getContextPath();  
@@ -16,29 +16,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br>
 	<br>
 	<br>
+	<%
+	Product product = (Product)request.getAttribute("product");
+	%>
 	<center>
-		<form action="productServlet?mothed=addProduct" method="post"  enctype="multipart/form-data">
+		<form action="productServlet?mothed=updateProduct" method="post"  enctype="multipart/form-data">
+			<input type="hidden" id="id" name="id" value="<%=product.getId() %>" />
 			<table width="300" height="200" border="0" cellspacing="0"
 				cellpadding="0"
 				style="border: 1px solid #ccc; background-color: #a6a3ff">
 				<tr>
-					<th colspan="2" align="center">添加库存</th>
+					<th colspan="2" align="center">修改库存</th>
 				</tr>
 				<tr>
 					<td align="right">书名:</td>
-					<td><input type="text" name="book_name"></td>
+					<td><input type="text" name="book_name" value="<%=product.getBookName() %>"></td>
 				</tr>
 				<tr>
 					<td align="right">价格:</td>
-					<td><input type="text" id="price" name="price"></td>
+					<td><input type="text" id="price" name="price" value="<%=product.getPrice() %>"></td>
 				</tr>
 				<tr>
 					<td align="right">数量:</td>
-					<td><input type="text" id="count" name="count"></td>
+					<td><input type="text" id="count" name="count" value="<%=product.getCount() %>"></td>
 				</tr>
 				<tr>
 					<td align="right">作者:</td>
-					<td><input type="text" id="author" name="author"></td>
+					<td><input type="text" id="author" name="author" value="<%=product.getAuthor() %>"></td>
 				</tr>
 				<tr>
 					<td align="right">封面:</td>

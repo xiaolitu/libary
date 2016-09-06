@@ -37,6 +37,10 @@ public class UserServlet extends HttpServlet{
 			String mothed = req.getParameter("mothed");
 			if ("register".equals(mothed)) {
 				register(req, resp);
+			}else if("userList".equals(mothed)){
+				userList(req, resp);
+			}else if("delUser".equals(mothed)){
+				delUser(req, resp);
 			}else if("login".equals(mothed)){
 				login(req, resp);
 			}else if("addManager".equals(mothed)){
@@ -53,6 +57,37 @@ public class UserServlet extends HttpServlet{
 		}
 	}
 	
+	private void delUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+		String id = req.getParameter("id");
+		if (userService.delUser(id)) {
+			Map<String, Object> map = userService.userList(1, 3);
+			map.put("page", 1);
+			req.setAttribute("map", map);
+			req.getRequestDispatcher("view/user/userList.jsp").forward(req, resp);
+		}else{
+			req.setAttribute("msg", "²Ù×÷Ê§°Ü");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+		}
+		
+	}
+
+
+	private void userList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+		int page = Integer.valueOf(req.getParameter("page"));
+		int rows = Integer.valueOf(req.getParameter("rows"));
+		if (page < 1) {
+			page = 1;
+		}
+		if (rows < 1) {
+			rows = 3;
+		}
+		Map<String, Object> map = userService.userList(page, rows);
+		map.put("page", page);
+		req.setAttribute("map", map);
+		req.getRequestDispatcher("view/user/userList.jsp").forward(req, resp);
+	}
+
+
 	public void updateManager(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException{
 		String id = req.getParameter("id");
 		String user_name = req.getParameter("user_name");

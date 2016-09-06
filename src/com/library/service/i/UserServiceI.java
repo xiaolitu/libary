@@ -19,4 +19,8 @@ public interface UserServiceI {
 	public boolean delManager(String id) throws SQLException;
 
 	public boolean updateManager(String id, String user_name, String password) throws SQLException;
+
+	public Map<String, Object> userList(int page, int rows) throws SQLException;
+
+	public boolean delUser(String id) throws SQLException;
 }
