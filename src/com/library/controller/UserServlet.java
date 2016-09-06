@@ -159,6 +159,11 @@ public class UserServlet extends HttpServlet{
 		user.setUserName(user_name);
 		user.setPassword(password);
 		user.setType("1");
+		if (user.getUserName() == null || user.getUserName().trim().length() == 0) {
+			req.setAttribute("msg", "参数有误");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+			return;
+		}
 		if (userService.addManager(user)) {
 			req.setAttribute("msg", "操作成功");
 			req.getRequestDispatcher("view/error.jsp").forward(req, resp);

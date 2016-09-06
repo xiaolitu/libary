@@ -120,6 +120,26 @@ public class ProductServlet extends HttpServlet{
 
 	private void addProduct(HttpServletRequest req, HttpServletResponse resp) throws Exception{
 		Map<String, String> map = upload(req, Contant.PATH, Contant.DIR);
+		if (map.get("book_name") == null || map.get("book_name").trim().length() == 0) {
+			req.setAttribute("msg", "参数有误");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+			return;
+		}
+		if (map.get("author") == null || map.get("author").trim().length() == 0) {
+			req.setAttribute("msg", "参数有误");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+			return;
+		}
+		if (map.get("count") == null || map.get("count").trim().length() == 0) {
+			req.setAttribute("msg", "参数有误");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+			return;
+		}
+		if (map.get("price") == null || map.get("price").trim().length() == 0) {
+			req.setAttribute("msg", "参数有误");
+			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
+			return;
+		}
 		com.library.bean.Product product = new Product();
 		product.setBookName(map.get("book_name"));
 		product.setAuthor(map.get("author"));
