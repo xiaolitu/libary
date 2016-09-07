@@ -13,11 +13,8 @@
 <title></title>
 </head>
 <body>
-	<form action="productServlet" method="post" enctype="multipart/form-data">
-		<input type="file" name="file" />
-		<input type="text" name="userName" />
-		<input type="text" name="password" />
-		<input type="submit" value="submit"/>
-	</form>
+	<%
+		response.sendRedirect("productServlet?mothed=productDisplay&page=1&rows=6");
+	%>
 </body>
 </html>

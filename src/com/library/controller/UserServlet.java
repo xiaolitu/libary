@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.library.bean.User;
+import com.library.service.i.ProductServiceI;
 import com.library.service.i.UserServiceI;
+import com.library.service.impl.ProductServiceImpl;
 import com.library.service.impl.UserServiceImpl;
 import com.library.util.StringUtil;
 
@@ -21,8 +23,10 @@ import com.library.util.StringUtil;
  *
  */
 public class UserServlet extends HttpServlet{
-
+	
+	private ProductServiceI productService = new ProductServiceImpl();
 	private UserServiceI userService = new UserServiceImpl();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
@@ -193,6 +197,9 @@ public class UserServlet extends HttpServlet{
 			if ("1".equals(user.getType())) {
 				req.getRequestDispatcher("view/manager/manager.jsp").forward(req, resp);
 			}else{
+				Map<String, Object> map = productService.productList(1, 6);
+				map.put("page", 1);
+				req.setAttribute("map", map);
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
 			}
 		}else{
@@ -230,7 +237,14 @@ public class UserServlet extends HttpServlet{
 		boolean b = userService.register(user);
 		if (b) {
 			req.setAttribute("userName", user.getUserName());
-			req.getRequestDispatcher("index.jsp").forward(req, resp);
+			if ("1".equals(user.getType())) {
+				req.getRequestDispatcher("view/manager/manager.jsp").forward(req, resp);
+			}else{
+				Map<String, Object> map = productService.productList(1, 6);
+				map.put("page", 1);
+				req.setAttribute("map", map);
+				req.getRequestDispatcher("index.jsp").forward(req, resp);
+			}
 		}else{
 			req.setAttribute("msg", "用户名已存在");
 			req.getRequestDispatcher("view/error.jsp").forward(req, resp);

@@ -1,16 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-    <%
-    
-    %>
+<%@ page language="java" import="java.util.*,com.library.bean.*"
+	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>欢迎页面</title>
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<base href="<%=basePath%>">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>库存列表</title>
+<style type="text/css">
+td {
+	padding: 12px;
+}
+</style>
 </head>
 <body>
 <%
@@ -21,51 +26,82 @@
 		<div align="right" style="margin-right: 50px"><label><%=userName %></label>&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.jsp	">退出</a></div>
 	<%}
 %>
+	<div align="center">
+		<table>
+			<%
+				Map<String, Object> map = (Map<String, Object>) request.getAttribute("map");
+				List<Product> books = (List<Product>) map.get("books");
+				//总的页数
+				int pages = Integer.valueOf(String.valueOf(map.get("pages")));
+				//当前页码
+				int pageTemp = Integer.valueOf(String.valueOf(map.get("page")));
+				for (int i = 0; books != null && i < books.size(); ) {
+			%>
+			<tr>
+				<%
+					for(int j = 0; j < 3; j++){
+						if(i < books.size()){
+					%>
+				<td align="center"><img
+					src="<%=books.get(i).getCover()%>"> <br>
+					<label><%=books.get(i).getBookName()%></label> <br> <label><%=books.get(i).getAuthor()%></label>
+					<br> <label>¥<%=books.get(i).getPrice()%></label><br> <label><%=books.get(i).getCount()%>本</label><br><button>购买</button></td>
+				<%}
+						i = i + 1;	
+					}
+				%>
 
-<div align="center">
-	<table>
-		<tr>
-			<td align="center">
-				<img src="http://img3x0.ddimg.cn/62/6/24012710-1_l_5.jpg">
-				<br><label>人类历史</label>
-				<br><label>张大人</label>
-				<br><label>¥19.5</label>
-			</td>
-			<td align="center">
-				<img src="http://img3x0.ddimg.cn/62/6/24012710-1_l_5.jpg">
-				<br><label>人类历史</label>
-				<br><label>张大人</label>
-				<br><label>¥19.5</label>
-			</td>
-			<td align="center">
-				<img src="http://img3x0.ddimg.cn/62/6/24012710-1_l_5.jpg">
-				<br><label>人类历史</label>
-				<br><label>张大人</label>
-				<br><label>¥19.5</label>
-			</td>
-		</tr>
-		
-		<tr>
-			<td align="center">
-				<img src="http://img3x0.ddimg.cn/62/6/24012710-1_l_5.jpg">
-				<br><label>人类历史</label>
-				<br><label>张大人</label>
-				<br><label>¥19.5</label>
-			</td>
-			<td align="center">
-				<img src="http://img3x0.ddimg.cn/62/6/24012710-1_l_5.jpg">
-				<br><label>人类历史</label>
-				<br><label>张大人</label>
-				<br><label>¥19.5</label>
-			</td>
-			<td align="center">
-				<img src="http://img3x0.ddimg.cn/62/6/24012710-1_l_5.jpg">
-				<br><label>人类历史</label>
-				<br><label>张大人</label>
-				<br><label>¥19.5</label>
-			</td>
-		</tr>
-	</table>
-</div>
+			</tr>
+			<%
+				}
+			%>
+
+		</table>
+	</div>
+
+	<div style="text-align: center; margin-top: 30px">
+		<a href="productServlet?mothed=productDisplay&page=1&rows=6">首页</a>
+
+		<%
+			if (pageTemp <= 3) {
+
+				for (int i = 2; i < pages && i <= 4; i++) {
+		%>
+		<a href="productServlet?mothed=productDisplay&page=<%=i%>&rows=6"><%=i%></a>
+		<%
+			}
+			} else if (pages - pageTemp < 3) {
+				if (pages - 3 > 1) {
+		%>
+		<a href="productServlet?mothed=productDisplay&page=<%=pages - 3%>&rows=6"><%=pages - 3%></a>
+		<%
+			}
+		%>
+		<a href="productServlet?mothed=productDisplay&page=<%=pages - 2%>&rows=6"><%=pages - 2%></a>
+		<a href="productServlet?mothed=productDisplay&page=<%=pages - 1%>&rows=6"><%=pages - 1%></a>
+
+		<%
+			} else {
+		%>
+		<%
+			if (pageTemp - 1 > 2) {
+		%>
+		<a
+			href="productServlet?mothed=productDisplay&page=<%=pageTemp - 1%>&rows=6"><%=pageTemp - 1%></a>
+		<%
+			}
+		%>
+		<a href="productServlet?mothed=productDisplay&page=<%=pageTemp%>&rows=6"><%=pageTemp%></a>
+		<%
+			if (pageTemp + 1 < pages) {
+		%>
+		<a
+			href="productServlet?mothed=productDisplay&page=<%=pageTemp + 1%>&rows=6"><%=pageTemp + 1%></a>
+		<%
+			}
+			}
+		%>
+		<a href="productServlet?mothed=productDisplay&page=<%=pages%>&rows=6">尾页</a>
+	</div>
 </body>
 </html>

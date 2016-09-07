@@ -49,11 +49,30 @@ public class ProductServlet extends HttpServlet{
 				updateProductJump(req, resp);
 			}else if ("updateProduct".equals(mothed)) {
 				updateProduct(req, resp);
+			}else if ("productDisplay".equals(mothed)) {
+				productDisplay(req, resp);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void productDisplay(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
+		
+		int page = Integer.valueOf(req.getParameter("page"));
+		int rows = Integer.valueOf(req.getParameter("rows"));
+		if (page < 1) {
+			page = 1;
+		}
+		if (rows < 1) {
+			rows = 3;
+		}
+		Map<String, Object> map = productService.productList(page, rows);
+		map.put("page", page);
+		req.setAttribute("map", map);
+		req.getRequestDispatcher("index.jsp").forward(req, resp);
+		
 	}
 
 	private void updateProduct(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -144,7 +163,7 @@ public class ProductServlet extends HttpServlet{
 		product.setBookName(map.get("book_name"));
 		product.setAuthor(map.get("author"));
 		product.setCount(Integer.parseInt(map.get("count")));
-		product.setCover(map.get("files"));
+		product.setCover(map.get("files").replace(",", ""));
 		product.setPrice(Float.parseFloat(map.get("price")));
 		if(productService.addProduct(product)){
 			Map<String, Object> mapTemp = productService.productList(1, 3);
@@ -198,13 +217,14 @@ public class ProductServlet extends HttpServlet{
 						try {
 							in = lists.get(i).getInputStream();
 							//构建文件名
-							out = new FileOutputStream(new java.io.File(file, String.valueOf(UUID.randomUUID()).replace("-", "")+lists.get(i).getName().substring(lists.get(i).getName().lastIndexOf("."))));
+							String fileName = String.valueOf(UUID.randomUUID()).replace("-", "")+lists.get(i).getName().substring(lists.get(i).getName().lastIndexOf("."));
+							out = new FileOutputStream(new java.io.File(file, fileName));
 							int index = -1;
 							byte[] b = new byte[1024 * 3];
 							while (( index = in.read(b)) != -1) {
 								out.write(b, 0, index);
 							}
-							buf.append(dir+"/"+String.valueOf(UUID.randomUUID()).replace("-", "")+lists.get(i).getName().substring(lists.get(i).getName().lastIndexOf("."))).append(",");
+							buf.append(dir+"/"+ fileName).append(",");
 						} catch (Exception e) {
 							throw e;
 						} finally {
