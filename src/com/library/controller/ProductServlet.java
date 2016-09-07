@@ -160,8 +160,8 @@ public class ProductServlet extends HttpServlet{
 			return;
 		}
 		com.library.bean.Product product = new Product();
-		product.setBookName(map.get("book_name"));
-		product.setAuthor(map.get("author"));
+		product.setBookName(new String(map.get("book_name").getBytes("iso-8859-1"), "utf-8"));
+		product.setAuthor(new String(map.get("author").getBytes("iso-8859-1"), "utf-8"));
 		product.setCount(Integer.parseInt(map.get("count")));
 		product.setCover(map.get("files").replace(",", ""));
 		product.setPrice(Float.parseFloat(map.get("price")));
