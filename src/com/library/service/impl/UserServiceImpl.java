@@ -26,8 +26,11 @@ public class UserServiceImpl implements UserServiceI{
 				+ " as count from t_user where user_name=?", 
 				user.getUserName());
 		if ("0".equals(String.valueOf(result.get(0).get("count")))) {
-			return dao.exec("insert into t_user(user_name,password,type) values(?,?,?)", 
+			boolean b = dao.exec("insert into t_user(user_name,password,type) values(?,?,?)", 
 					user.getUserName(),user.getPassword(),user.getType());
+			List<Map<String, Object>> id = dao.query("select last_insert_id() as id");
+			user.setId(Integer.parseInt(String.valueOf(id.get(0).get("id"))));
+			return b;
 		}else{
 			return false;
 		}

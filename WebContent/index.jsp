@@ -19,11 +19,11 @@ td {
 </head>
 <body>
 <%
-	String userName = (String)request.getAttribute("userName");
-	if(userName == null){%>
+	User user = (User)request.getSession().getAttribute("user");
+	if(user == null){%>
 		<div align="right" style="margin-right: 50px"><a href="view/login.jsp">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="view/user/register.jsp">免费注册</a></div>
 	<%}else{%>
-		<div align="right" style="margin-right: 50px"><label><%=userName %></label>&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.jsp	">退出</a></div>
+		<div align="right" style="margin-right: 50px"><label><%=user.getUserName() %></label>&nbsp;&nbsp;&nbsp;&nbsp;<a href="userServlet?mothed=loginOut">退出</a></div>
 	<%}
 %>
 	<div align="center">
@@ -42,10 +42,10 @@ td {
 					for(int j = 0; j < 3; j++){
 						if(i < books.size()){
 					%>
-				<td align="center"><img
-					src="<%=books.get(i).getCover()%>"> <br>
+				<td align="center"><a href="productServlet?mothed=details&bookId=<%=books.get(i).getId()%>"><img
+					src="<%=books.get(i).getCover()%>"></a> <br>
 					<label><%=books.get(i).getBookName()%></label> <br> <label><%=books.get(i).getAuthor()%></label>
-					<br> <label>¥<%=books.get(i).getPrice()%></label><br> <label><%=books.get(i).getCount()%>本</label><br><button>购买</button></td>
+					<br> <label>¥<%=books.get(i).getPrice()%></label><br> <label><%=books.get(i).getCount()%>本</label></td>
 				<%}
 						i = i + 1;	
 					}

@@ -13,7 +13,16 @@
 		<servlet-name>productServlet</servlet-name>
 		<servlet-class>com.library.controller.ProductServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>orderServlet</servlet-name>
+		<servlet-class>com.library.controller.OrderServlet</servlet-class>
+	</servlet>
 	
+	
+	<servlet-mapping>
+		<servlet-name>orderServlet</servlet-name>
+		<url-pattern>/orderServlet</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>productServlet</servlet-name>
 		<url-pattern>/productServlet</url-pattern>

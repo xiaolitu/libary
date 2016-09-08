@@ -51,11 +51,20 @@ public class ProductServlet extends HttpServlet{
 				updateProduct(req, resp);
 			}else if ("productDisplay".equals(mothed)) {
 				productDisplay(req, resp);
+			}else if ("details".equals(mothed)) {
+				details(req, resp);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void details(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+		String bookId = req.getParameter("bookId");
+		Product product = productService.findProductById(bookId);
+		req.setAttribute("product", product);
+		req.getRequestDispatcher("view/product/productDetails.jsp").forward(req, resp);
 	}
 
 	private void productDisplay(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
@@ -104,7 +113,7 @@ public class ProductServlet extends HttpServlet{
 	 * @throws ServletException 
 	 */
 	private void updateProductJump(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
-		Product product = productService.updateProductJump(req.getParameter("id"));
+		Product product = productService.findProductById(req.getParameter("id"));
 		req.setAttribute("product", product);
 		req.getRequestDispatcher("view/product/updateProduct.jsp").forward(req, resp);
 	}

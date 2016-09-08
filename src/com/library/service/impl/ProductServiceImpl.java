@@ -66,8 +66,8 @@ public class ProductServiceImpl implements ProductServiceI{
 	}
 
 	@Override
-	public Product updateProductJump(String parameter) throws SQLException {
-		List<Map<String, Object>> result = dao.query("SELECT * FROM t_book where id = ?", parameter);
+	public Product findProductById(String bookId) throws SQLException {
+		List<Map<String, Object>> result = dao.query("SELECT * FROM t_book where id = ?", bookId);
 		Product product = new Product();
 		product.setId(Integer.parseInt(String.valueOf(result.get(0).get("id"))));
 		product.setBookName(String.valueOf(result.get(0).get("book_name")));

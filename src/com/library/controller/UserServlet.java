@@ -55,12 +55,23 @@ public class UserServlet extends HttpServlet{
 				delManager(req, resp);
 			}else if("updateManager".equals(mothed)){
 				updateManager(req, resp);
+			}else if("loginOut".equals(mothed)){
+				loginOut(req, resp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private void loginOut(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
+		req.getSession().removeAttribute("userName");
+		Map<String, Object> map = productService.productList(1, 6);
+		map.put("page", 1);
+		req.setAttribute("map", map);
+		req.getRequestDispatcher("index.jsp").forward(req, resp);
+	}
+
+
 	private void delUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
 		String id = req.getParameter("id");
 		if (userService.delUser(id)) {
@@ -193,7 +204,7 @@ public class UserServlet extends HttpServlet{
 		user.setPassword(password);
 		user = userService.login(user);
 		if(user != null){
-			req.setAttribute("userName", user.getUserName());
+			req.getSession().setAttribute("user", user);
 			if ("1".equals(user.getType())) {
 				req.getRequestDispatcher("view/manager/manager.jsp").forward(req, resp);
 			}else{
@@ -236,7 +247,7 @@ public class UserServlet extends HttpServlet{
 		user.setType("0");
 		boolean b = userService.register(user);
 		if (b) {
-			req.setAttribute("userName", user.getUserName());
+			req.getSession().setAttribute("user", user);
 			if ("1".equals(user.getType())) {
 				req.getRequestDispatcher("view/manager/manager.jsp").forward(req, resp);
 			}else{

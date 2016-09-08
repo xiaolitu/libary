@@ -13,8 +13,8 @@ public interface ProductServiceI {
 
 	public boolean delManager(String id) throws SQLException;
 
-	public Product updateProductJump(String parameter) throws SQLException;
+	public Product findProductById(String parameter) throws SQLException;
 
 	public boolean updateProduct(Product product) throws SQLException;
-	
+
 }
