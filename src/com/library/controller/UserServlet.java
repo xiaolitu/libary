@@ -65,10 +65,7 @@ public class UserServlet extends HttpServlet{
 	
 	private void loginOut(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
 		req.getSession().removeAttribute("userName");
-		Map<String, Object> map = productService.productList(1, 6);
-		map.put("page", 1);
-		req.setAttribute("map", map);
-		req.getRequestDispatcher("index.jsp").forward(req, resp);
+		req.getRequestDispatcher("test.jsp").forward(req, resp);
 	}
 
 
