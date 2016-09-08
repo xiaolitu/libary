@@ -53,14 +53,15 @@ public class Upload {
 					FileOutputStream out = null;
 					try {
 						in = lists.get(i).getInputStream();
+						String fileName = String.valueOf(UUID.randomUUID()).replace("-", "")+lists.get(i).getName().substring(lists.get(i).getName().lastIndexOf("."));
 						//构建文件名
-						out = new FileOutputStream(new java.io.File(file, String.valueOf(UUID.randomUUID()).replace("-", "")+lists.get(i).getName().substring(lists.get(i).getName().lastIndexOf("."))));
+						out = new FileOutputStream(new java.io.File(file, fileName));
 						int index = -1;
 						byte[] b = new byte[1024 * 3];
 						while (( index = in.read(b)) != -1) {
 							out.write(b, 0, index);
 						}
-						buf.append(dir+"/"+String.valueOf(UUID.randomUUID()).replace("-", "")+lists.get(i).getName().substring(lists.get(i).getName().lastIndexOf("."))).append(",");
+						buf.append(dir+"/"+fileName).append(",");
 					} catch (Exception e) {
 						throw e;
 					} finally {
