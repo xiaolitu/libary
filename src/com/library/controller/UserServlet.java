@@ -64,7 +64,7 @@ public class UserServlet extends HttpServlet{
 	}
 	
 	private void loginOut(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
-		req.getSession().removeAttribute("userName");
+		req.getSession().removeAttribute("user");
 		req.getRequestDispatcher("test.jsp").forward(req, resp);
 	}
 
