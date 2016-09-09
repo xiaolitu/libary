@@ -168,6 +168,7 @@ public class ProductServlet extends HttpServlet{
 			req.getRequestDispatcher("view/error.jsp").forward(req, resp);
 			return;
 		}
+		
 		com.library.bean.Product product = new Product();
 		product.setBookName(new String(map.get("book_name").getBytes("iso-8859-1"), "utf-8"));
 		product.setAuthor(new String(map.get("author").getBytes("iso-8859-1"), "utf-8"));
