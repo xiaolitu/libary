@@ -10,7 +10,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>库存列表</title>
+<title>首页</title>
 <style type="text/css">
 td {
 	padding: 12px;
@@ -23,7 +23,7 @@ td {
 	if(user == null){%>
 		<div align="right" style="margin-right: 50px"><a href="view/login.jsp">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="view/user/register.jsp">免费注册</a></div>
 	<%}else{%>
-		<div align="right" style="margin-right: 50px"><label><%=user.getUserName() %></label>&nbsp;&nbsp;&nbsp;&nbsp;<a href="userServlet?mothed=loginOut">退出</a></div>
+		<div align="right" style="margin-right: 50px"><label><%=user.getUserName() %></label>&nbsp;&nbsp;<a href="userServlet?mothed=loginOut">退出</a>&nbsp;&nbsp;<a href="orderServlet?mothed=shoppingCartList">我的购物车</a></div>
 	<%}
 %>
 	<div align="center">

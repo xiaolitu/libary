@@ -12,8 +12,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 </head>
-<frameset rows="10%,90%">
-	<frame />
+<frameset rows="15%,85%" border="0" cellspacing="0" cellpadding="0">
+	<frame noresize="noresize" src="view/manager/top.jsp"/>
 	<frameset cols="10%,90%">
 		<frame src="view/manager/left.jsp"/>
 		<frame name="right"/>

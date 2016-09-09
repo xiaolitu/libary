@@ -48,8 +48,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 	</style>
+	<script>
+	function goHome(){
+	top.location="productServlet?mothed=productDisplay&page=1&rows=6";
+	}
+	
+	</script>
 </head>
-<body style="text-align: center;">
+<body style="text-align: center;background:	#F0F0F0"">
 <div id="userHead" name="head">用户管理</div>
 <div id="user" style="display: none">
 <a href="userServlet?mothed=userList&page=1&rows=3" target="right">查询用户</a>
@@ -64,5 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <a href="view/manager/add.jsp" target="right">添加管理员</a><br>
 <a href="userServlet?mothed=managerList&page=1&rows=3" target="right">查询管理员</a>
 </div>
+<br><br>
+<a onclick="goHome()">返回首页</a>
 </body>
 </html>
