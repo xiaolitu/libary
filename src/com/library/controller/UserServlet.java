@@ -19,6 +19,13 @@ import com.library.util.StringUtil;
 
 /**
  * 用户模块
+ * 
+ * utf-8  gbk(国标) iso-8859-1
+ * 
+ * 
+ * 
+ * 
+ * 
  * @author Administrator
  *
  */
