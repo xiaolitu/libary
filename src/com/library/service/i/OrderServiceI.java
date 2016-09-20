@@ -13,5 +13,9 @@ public interface OrderServiceI {
 	public List<Map<String, Object>> shoppingCartList(int userId) throws SQLException;
 
 	public boolean shoppingCartSaveOrder(String[] ids, int userId) throws SQLException;
+
+	public List<Map<String, Object>> orderList(int id) throws SQLException;
+
+	public boolean delOrder(String id) throws SQLException;
 	
 }

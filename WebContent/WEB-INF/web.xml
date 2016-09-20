@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-	
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+
 	<welcome-file-list>
 		<welcome-file>test.jsp</welcome-file>
 	</welcome-file-list>
-	
+
 	<servlet>
 		<servlet-name>userServlet</servlet-name>
 		<servlet-class>com.library.controller.UserServlet</servlet-class>
@@ -17,8 +20,8 @@
 		<servlet-name>orderServlet</servlet-name>
 		<servlet-class>com.library.controller.OrderServlet</servlet-class>
 	</servlet>
-	
-	
+
+
 	<servlet-mapping>
 		<servlet-name>orderServlet</servlet-name>
 		<url-pattern>/orderServlet</url-pattern>
@@ -31,4 +34,33 @@
 		<servlet-name>userServlet</servlet-name>
 		<url-pattern>/userServlet</url-pattern>
 	</servlet-mapping>
+
+
+     <!--放弃使用过滤器-->
+	 <!--配置过滤器-->
+	<!--<filter>
+		<filter-name>myFilter</filter-name>
+		<filter-class>com.library.filter.MyFilter</filter-class>
+		配置过滤器的初始化参数
+		<init-param>
+			<param-name>url</param-name>
+			不拦截
+			<param-value>/index.jsp,/view/login.jsp,/userServlet,/test.jsp,/productServle,
+			/view/manager/left.jsp,/view/manager/manager.jsp,/view/manager/top.jsp,/view/product/product.jsp,/view/product/productList.jsp,</param-value>
+		</init-param>
+
+	</filter>
+    
+    映射过滤器
+	<filter-mapping>
+		<filter-name>myFilter</filter-name>
+		过滤所有请求
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	错误页面的设置
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error.jsp</location>
+	</error-page> -->
 </web-app>

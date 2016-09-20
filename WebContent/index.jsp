@@ -19,11 +19,12 @@ td {
 </head>
 <body>
 <%
+    //从session域中取出指定对象user,用user接收
 	User user = (User)request.getSession().getAttribute("user");
 	if(user == null){%>
 		<div align="right" style="margin-right: 50px"><a href="view/login.jsp">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="view/user/register.jsp">免费注册</a></div>
 	<%}else{%>
-		<div align="right" style="margin-right: 50px"><label><%=user.getUserName() %></label>&nbsp;&nbsp;<a href="userServlet?mothed=loginOut">退出</a>&nbsp;&nbsp;<a href="orderServlet?mothed=shoppingCartList">我的购物车</a></div>
+		<div align="right" style="margin-right: 50px"><label><%=user.getUserName() %></label>&nbsp;&nbsp;<a href="userServlet?mothed=loginOut">退出</a>&nbsp;&nbsp;<a href="orderServlet?mothed=shoppingCartList">我的购物车</a>&nbsp;&nbsp;<a href="orderServlet?mothed=orderList">我的订单</a></div>
 	<%}
 %>
 	<div align="center">
@@ -39,13 +40,14 @@ td {
 			%>
 			<tr>
 				<%
+				//设置每一行显示的书本数
 					for(int j = 0; j < 3; j++){
 						if(i < books.size()){
 					%>
 				<td align="center"><a href="productServlet?mothed=details&bookId=<%=books.get(i).getId()%>"><img
 					src="<%=books.get(i).getCover()%>"></a> <br>
 					<label><%=books.get(i).getBookName()%></label> <br> <label><%=books.get(i).getAuthor()%></label>
-					<br> <label>¥<%=books.get(i).getPrice()%></label><br> <label><%=books.get(i).getCount()%>本</label></td>
+					<br> <label>¥<%=books.get(i).getPrice()%></label><br> <label>库存<%=books.get(i).getCount()%>本</label></td>
 				<%}
 						i = i + 1;	
 					}
